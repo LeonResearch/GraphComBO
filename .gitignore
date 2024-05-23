@@ -161,7 +161,7 @@ cython_debug/
 #.idea/
 
 # outputs
-logs/
+logs/*
 logs_saved/
 problems/TUDataset/
 problems/Coauthor/
