@@ -1,5 +1,7 @@
-# Bayesian Optimization of Functions over Node Combinations in Graphs
-This is the python implementation with BOTorch for the paper Bayesian Optimization of Functions over Node Combinations in Graphs.
+# Bayesian Optimization of Functions over Node Subsets in Graphs
+
+<img width="2237" alt="image" src="https://github.com/LeonResearch/GraphComBO/assets/64602721/b1f56340-278a-45b1-865c-77c30139c183">
+
 
 ## Create virtual env & install dependencies
 ```
