@@ -1,7 +1,13 @@
 # Bayesian Optimization of Functions over Node Subsets in Graphs
 
+## Overall Structure - Demo
 <img width="2237" alt="image" src="https://github.com/LeonResearch/GraphComBO/assets/64602721/b1f56340-278a-45b1-865c-77c30139c183">
 
+## Recursive Combo-subgraph Sampling - Demo
+
+<div align="center">
+  <img src="https://github.com/LeonResearch/GraphComBO/assets/64602721/ee5fe868-4740-4af3-86f5-26101329492d" alt="combo-subgraph" style="width: 60%; height: 60%">
+</div>
 
 ## Create virtual env & install dependencies
 ```
