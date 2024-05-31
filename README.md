@@ -3,6 +3,12 @@
 ## Overall Structure - Demo
 <img width="2237" alt="image" src="https://github.com/LeonResearch/GraphComBO/assets/64602721/b1f56340-278a-45b1-865c-77c30139c183">
 
+
+### Search Animation 
+<div align="center">
+  <img src="https://github.com/LeonResearch/GraphComBO/assets/64602721/f8c13e14-53b4-470c-ae03-03932b7eedeb" alt="combo-subgraph" style="width: 60%; height: 60%">
+</div>
+
 ## Recursive Combo-subgraph Sampling - Demo
 
 <div align="center">
