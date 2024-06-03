@@ -16,6 +16,9 @@
 </div>
 
 ## Create virtual env & install dependencies
+
+**Please Note that the following instructions are not finalised yet, and we aim to provide a correct list of the packages after testing.**
+
 ```
 conda create -n graph
 conda install networkx numpy pandas matplotlib seaborn scipy jupyterlab
