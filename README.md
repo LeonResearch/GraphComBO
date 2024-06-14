@@ -20,11 +20,10 @@
 **Please Note that the following instructions are not finalised yet, and we aim to provide a correct list of the packages after testing.**
 
 ```
-conda create -n graph
-conda install networkx numpy pandas matplotlib seaborn scipy jupyterlab
-conda install pyg -c pyg
-conda install botorch -c pytorch -c gpytorch -c conda-forge
+conda create -n GraphComBO
 conda activate graph
+conda install networkx numpy pandas matplotlib seaborn scipy 
+pip install pytorch pyg gpytorch botorch
 pip install ndlib
 pip install osmnx
 ```
