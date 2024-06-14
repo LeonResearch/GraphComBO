@@ -168,5 +168,4 @@ problems/Coauthor/
 problems/GNN/data/
 problems/*day2.gexf_
 notebooks/
-README.md
-./*.sh
+*.sh
