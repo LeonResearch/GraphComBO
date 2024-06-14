@@ -4,13 +4,13 @@ The goal is to find the optimal subset within a limited number of queries (evalu
 
 ### Search Animation 
 <div align="center">
-  <img src="https://github.com/LeonResearch/GraphComBO/assets/64602721/f8c13e14-53b4-470c-ae03-03932b7eedeb" alt="combo-subgraph" style="width: 60%; height: 60%">
+  <img src="images/Overall.gif" alt="combo-subgraph" style="width: 60%; height: 60%">
 </div>
 
 ### Recursive Combo-subgraph Sampling - Demo
 
 <div align="center">
-  <img src="https://github.com/LeonResearch/GraphComBO/assets/64602721/ee5fe868-4740-4af3-86f5-26101329492d" alt="combo-subgraph" style="width: 60%; height: 60%">
+  <img src="images/Recursive_Sampling.gif" alt="combo-subgraph" style="width: 60%; height: 60%">
 </div>
 
 ## Installation
