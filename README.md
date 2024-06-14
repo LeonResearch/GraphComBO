@@ -1,6 +1,6 @@
 # Bayesian Optimization of Functions over Node Subsets in Graphs
-This is the repo for GraphComBO, a Bayesian optimization tool for optimizing black-box and expensive functions defined on a subset of nodes in graphs. 
-The goal is to find the optimal subset within a limited number of queries (evaluations of the underlying function). 
+This is the repo for GraphComBO, a Bayesian optimization tool for black-box and expensive functions defined over node subsets in graphs, 
+where the goal is to find the optimal subset within a limited number of queries (evaluations of the underlying function). 
 
 ### Search Animation 
 <div align="center">
