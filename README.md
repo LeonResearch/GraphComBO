@@ -1,15 +1,13 @@
 # Bayesian Optimization of Functions over Node Subsets in Graphs
-
-## Overall Structure - Demo
-<img width="2237" alt="image" src="https://github.com/LeonResearch/GraphComBO/assets/64602721/b1f56340-278a-45b1-865c-77c30139c183">
-
+This is the repo for GraphComBO, a Bayesian optimisation tool for optimising black-box and expensive functions defined on a subset of nodes in graphs. 
+The goal is to find the optimal subset within a limited number of queries (evaluations of the underlying function). 
 
 ### Search Animation 
 <div align="center">
   <img src="https://github.com/LeonResearch/GraphComBO/assets/64602721/f8c13e14-53b4-470c-ae03-03932b7eedeb" alt="combo-subgraph" style="width: 60%; height: 60%">
 </div>
 
-## Recursive Combo-subgraph Sampling - Demo
+### Recursive Combo-subgraph Sampling - Demo
 
 <div align="center">
   <img src="https://github.com/LeonResearch/GraphComBO/assets/64602721/ee5fe868-4740-4af3-86f5-26101329492d" alt="combo-subgraph" style="width: 60%; height: 60%">
