@@ -48,8 +48,8 @@ pip install osmnx
 ```
 
 ## Run
-Use the following line in a bash shell to test the algorithm with config from configurations/testing.yaml,
-and use --plot_result True to visualize the result.
+Use the following line in a bash shell to test the algorithm with config from `configurations/testing.yaml`,
+and enable `--plot_result True` to visualize the result.
 ```bash
 python main.py --plot_result True
 ```
