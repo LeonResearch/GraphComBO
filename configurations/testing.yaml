@@ -1,12 +1,12 @@
-label: [diffusion_ard] # [local_search, klocal_search, dfs, bfs, random, random_walk, diffusion_ard] #[polynomial, polynomial_suminverse, diffusion, diffusion_ard, local_search, random, bfs, dfs]
-save_dir: ./logs/useless/
-n_exp: 10 # number of experiments with different random seeds
+label: [diffusion_ard, local_search, klocal_search, dfs, bfs, random_walk, random]
+save_dir: ./logs/testing/
+n_exp: 5 # number of experiments with different random seeds
 bo_settings:
   batch_size: 1 # batch size
-  max_iters: 300 # number of total queries
+  max_iters: 100 # number of total queries
   max_radius: 5 # the maximum hop distance to the centre node when constructing the local context graph
   n_init: 1 # Initial queried points 
-  Q: 4000 # the size of the context ComboSubgraph
+  Q: 2000 # the size of the context ComboSubgraph
   large_Q: False
   exploitation: False
   start_location: random #[random, ei, betweenness, degree] # the initial starting location of search, recommended for large k
@@ -20,10 +20,9 @@ bo_settings:
 problem_name: synthetic # [synthetic, epidemic, influence_maximisation, resilience, gnn_attack] the experimental problem type
 problem_settings:  
   n: 1000 # number of nodes in the underlying (synthetic) random graphs
-  k: 32 # number of combinations
-  graph_type: sbm # [ws, ba, sbm, grid, contact_network_day1, CS, Facebook, Road, DD, ENZYMES]
-  underlying_function: pagerank # [eigenvector_centrality, pagerank, ackley, infection_time, independent_cascading, transitivity, JS, WD]
-  graph_index: 0 # we choose 2 because its size is relatively suitable for perturbation less than 32
+  k: 8 # number of combinations
+  graph_type: ba # [ws, ba, sbm, grid, contact_network_day1, CS, Facebook, Road, DD, ENZYMES]
+  underlying_function: eigenvector_centrality # [eigenvector_centrality, pagerank, ackley, infection_time, independent_cascading, transitivity, JS, WD]
   m: 5
   wsk: 10
   p: 0.1
@@ -37,3 +36,4 @@ problem_settings:
   SIR_n_iterations: 120
   IC_p: 0.05
   IC_n_samples: 1000
+  graph_index: 0 # we choose 2 because its size is relatively suitable for perturbation less than 32

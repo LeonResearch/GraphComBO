@@ -69,34 +69,12 @@ if __name__ == "__main__":
     seed=args.start_seed
     problem_kwargs["k"] = args.k if args.k is not None else getattr(problem_kwargs, "k", 2)
     bo_kwargs["start_location"] = args.starting if args.starting is not None else getattr(bo_kwargs,"start_location","random")
-    if args.exploitation:
-        if args.starting in ["ei", "degree", "pagerank"]:
-            bo_kwargs["restart_location"] = "same_as_start"
-            bo_kwargs["max_radius"] = 10
-            bo_kwargs["tr_settings"]["fail_tol"] = 5 if problem_kwargs["graph_type"] != 'Road' else 5
-            bo_kwargs["exploitation"] = True
-            bo_kwargs["Q"] = 300 if problem_kwargs["graph_type"] == 'Road' else 400
-        else: # note this is for not exploitation, i.e. starting with random
-            Q_dict = {'CS':{32:4000, 16:4000, 8:4000, 4:4000},
-                      'Road': {32:200, 16:100, 8:50, 4:25,},
-                      'ba': {32:4000, 16:4000, 8:4000, 4:4000,},
-                      'ws': {32:2000, 16:1000, 8:500, 4:250,},
-                      }
-            if problem_kwargs["graph_type"] in ['CS']:
-                bo_kwargs["Q"] = Q_dict[problem_kwargs["graph_type"]][problem_kwargs["k"]]
-            if problem_kwargs["graph_type"] in ['contact_network_day1']:
-                bo_kwargs["Q"] = bo_kwargs["Q"] if problem_kwargs["k"] == 4 else bo_kwargs["Q"]
-            if problem_kwargs["graph_type"] in ['ENZYMES', 'DD']:
-                bo_kwargs["n_init"] = 10 if problem_kwargs["k"] in [8, 16] else bo_kwargs["n_init"]
-                bo_kwargs["Q"] = 4000 if problem_kwargs["k"] in [8, 16] else bo_kwargs["Q"]
 
     # Settings for ablation studies
     bo_kwargs["Q"] = args.Q if args.Q is not None else bo_kwargs["Q"]
     bo_kwargs["tr_settings"]["fail_tol"] = args.failtol if args.failtol is not None else bo_kwargs["tr_settings"]["fail_tol"]
     # Settings to use a faster method subgraph construction for scale-free networks CS and ba
-    if problem_kwargs["graph_type"] == 'contact_network_large':
-        bo_kwargs["large_Q"] = True 
-    elif problem_kwargs["graph_type"] in ['CS', 'ba', 'contact_network_day1'] and problem_kwargs["k"] >= 16: 
+    if problem_kwargs["graph_type"] in ['CS', 'ba', 'contact_network_day1'] and problem_kwargs["k"] >= 16: 
         bo_kwargs["large_Q"] = True 
     # Settings to set a prior for X by multiplying a weight on the acquisition 
     if args.problem in ["BA", "WS", "SBM", "SIR", "Patient_Zero", "Coauthor_IC"] and problem_kwargs["k"] >= 16:

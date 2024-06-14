@@ -477,9 +477,6 @@ def run_search(
         exploration_list.append(num_explored_combonodes)
         degree_list.append(combosubgraph_center_degree)
         distance_list.append(distance_from_start)
-        
-        if iter == 50:
-            __import__("pdb").set_trace()
 
     print(f"time for search: {time()-sss:.1f}s, n_restart: {n_restart}, "
         f"n_contextsubgraph: {n_contextsubgraph}")
