@@ -16,7 +16,6 @@
 </div>
 
 ## Installation
-**Please Note that the following instructions are not finalised yet where some packages might not be included. We aim to provide a correct list of the packages after testing.**
 ### 1. Create a virtual environment for GraphComBO
 ```
 conda create -n GraphComBO
@@ -26,7 +25,7 @@ conda activate GraphComBO
 ### 2. Install Common Packages (skip if satisfied)
 The following common packages are assumed to be installed beforehand:
 ```
-numpy pandas matplotlib scipy networkx
+numpy pandas matplotlib scipy networkx math functools itertools future multiprocessing
 ```
 Note that [scikit-learn](https://scikit-learn.org/stable/install) and [PyTorch](https://pytorch.org/get-started/locally/) are also required, which can be installed in the links.
 
@@ -43,8 +42,9 @@ pip install botorch
 ```
 
 ### 4. Install other Packages for Experiments
-Lastly, the following packages are used for different experiment setups:
+Lastly, the following packages are used for different experiment setups.
 ```
+pip install torch_geometric
 pip install ndlib
 pip install osmnx
 ```
