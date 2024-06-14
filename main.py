@@ -55,17 +55,6 @@ if __name__ == "__main__":
     
     # ======================== Experimental Settings with args =========================
     # Update the configs with input args if they are specified
-    if args.label == 'baselines':
-        labels = ["random", "random_walk", "bfs", "dfs", "local_search", "klocal_search"]
-    elif args.label == 'baselines1':
-        labels = ["random", "random_walk"]
-    elif args.label == 'baselines2':
-        labels = ["bfs", "dfs"]
-    elif args.label == 'baselines3':
-        labels = ["local_search", "klocal_search"]
-    else:
-        labels = [args.label] if args.label is not None else labels
-    
     seed=args.start_seed
     problem_kwargs["k"] = args.k if args.k is not None else getattr(problem_kwargs, "k", 2)
     bo_kwargs["start_location"] = args.starting if args.starting is not None else getattr(bo_kwargs,"start_location","random")
