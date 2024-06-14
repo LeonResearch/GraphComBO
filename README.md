@@ -15,21 +15,47 @@
   <img src="https://github.com/LeonResearch/GraphComBO/assets/64602721/ee5fe868-4740-4af3-86f5-26101329492d" alt="combo-subgraph" style="width: 60%; height: 60%">
 </div>
 
-## Create virtual env & install dependencies
-
-**Please Note that the following instructions are not finalised yet, and we aim to provide a correct list of the packages after testing.**
-
+## Installation
+**Please Note that the following instructions are not finalised yet where some packages might not be included. We aim to provide a correct list of the packages after testing.**
+### 1. Create a virtual environment for GraphComBO
 ```
 conda create -n GraphComBO
-conda activate graph
-conda install networkx numpy pandas matplotlib seaborn scipy 
-pip install pytorch pyg gpytorch botorch
+conda activate GraphComBO
+```
+
+### 2. Install Common Packages (skip if satisfied)
+The following common packages are assumed to be installed beforehand:
+```
+numpy pandas matplotlib scipy networkx
+```
+Note that [scikit-learn](https://scikit-learn.org/stable/install) and [PyTorch](https://pytorch.org/get-started/locally/) are also required, which can be installed in the links.
+
+### 3. Install BoTorch
+We use [BoTorch](https://botorch.org/) to implement our BO algorithm with [GPyTorch](https://gpytorch.ai/).
+
+To install BoTorch with conda:
+```
+conda install botorch -c pytorch -c gpytorch -c conda-forge
+```
+or alternatively install with pip
+```
+pip install botorch
+```
+
+### 4. Install other Packages for Experiments
+Lastly, the following packages are used for different experiment setups:
+```
 pip install ndlib
 pip install osmnx
 ```
 
 ## Run
-Use the following code in a bash shell to run an experiment with pre-specified configurations:
+Use the following line in a bash shell to test the algorithm with config from configurations/testing.yaml
+```bash
+python main.py
+```
+
+To reproduce the experiment results, use the following code with pre-specified configurations:
 ```bash
 python main.py --problem BA
 python main.py --problem WS
