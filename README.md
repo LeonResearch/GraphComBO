@@ -28,7 +28,7 @@ numpy pandas matplotlib scipy networkx math functools itertools future multiproc
 Note that [scikit-learn](https://scikit-learn.org/stable/install) and [PyTorch](https://pytorch.org/get-started/locally/) are also required, which can be installed in the links.
 
 ### 3. Install BoTorch
-We use [BoTorch](https://botorch.org/) to implement our BO algorithm with [GPyTorch](https://gpytorch.ai/).
+We use [BoTorch](https://botorch.org/) and [GPyTorch](https://gpytorch.ai/) to implement our BO algorithm.
 
 To install BoTorch with conda:
 ```
