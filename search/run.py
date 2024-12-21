@@ -44,6 +44,7 @@ def run_search(
     k: int = 2,  # Number of combinations
     use_prior: bool = False,
     warmup: str = 'random',
+    noisy: bool = False,
     X_prior = None,
     acqf_kwargs: Optional[dict] = None,
     acqf_optim_kwargs: Optional[dict] = None,
@@ -185,13 +186,14 @@ def run_search(
             # change to order size context graph
             model_configurations["order"] = len(ComboSubgraph.nodes)  
         elif label == "diffusion":
+            model_configurations["order"] = len(ComboSubgraph.nodes)  
             model_configurations["ard"] = False  # Diffusion kernel without ARD
         elif label in ["polynomial_suminverse", "polynomial"]:
             model_configurations["order"] = n_hop  ## Change to order size context graph
 
             torch.tensor(start_combonode).numpy().reshape(1, -1),
     
-        # Initialise baselines
+    # Initialise baselines
     elif label in baselines:
         ComboSubgraph = (
             nx.Graph() if label == "local_search" else None
@@ -289,6 +291,7 @@ def run_search(
                 n_init=n_initial_points,
                 seed=seed,
                 converge=converge,
+                noisy=noisy,
                 tuple_to_int_mapper=tuple_to_int_mapper,
                 int_to_tuple_mapper=int_to_tuple_mapper,
                 kernel_configurations=model_configurations,

@@ -42,14 +42,14 @@ def create_path(save_dir, problem_name, problem_kwargs, bo_kwargs):
                           f'k-{problem_kwargs["k"]}',
                           f'm-{problem_kwargs["m"]}', 
                           ])
-        if problem_kwargs["graph_type"] == "ws":
+        elif problem_kwargs["graph_type"] == "ws":
             s = "_".join([problem_kwargs["graph_type"], 
                           problem_kwargs["underlying_function"], 
                           f'n-{problem_kwargs["n"]}',
                           f'k-{problem_kwargs["k"]}',
                           f'wsk-{problem_kwargs["wsk"]}', f'p-{problem_kwargs["p"]}', 
                           ])
-        if problem_kwargs["graph_type"] == "sbm":
+        elif problem_kwargs["graph_type"] == "sbm":
             s = "_".join([problem_kwargs["graph_type"], 
                           problem_kwargs["underlying_function"], 
                           f'n-{problem_kwargs["n"]}',
@@ -58,14 +58,23 @@ def create_path(save_dir, problem_name, problem_kwargs, bo_kwargs):
                           f'probin-{problem_kwargs["probin"]}', 
                           f'probout-{problem_kwargs["probout"]}', 
                           ])
-        if problem_kwargs["graph_type"] == "grid":
+        elif problem_kwargs["graph_type"] == "grid":
             s = "_".join([problem_kwargs["graph_type"], 
                           problem_kwargs["underlying_function"], 
                           f'n-{problem_kwargs["n"]}',
                           f'k-{problem_kwargs["k"]}',
                           f'noise-{problem_kwargs["noise"]}', 
                           ])
-    s = "_".join([s, f'ninit-{bo_kwargs["n_init"]}',
+        elif problem_kwargs["graph_type"] == "ogb_arxiv":
+            s = "_".join([problem_kwargs["graph_type"], 
+                          problem_kwargs["underlying_function"], 
+                          f'k-{problem_kwargs["k"]}',
+                          ])
+        if getattr(problem_kwargs, "noisy", False):
+            s = "_".join([s, f'noise-{problem_kwargs["noise"]}'])
+
+    s = "_".join([s, 
+                  f'ninit-{bo_kwargs["n_init"]}',
                   f'failtol-{bo_kwargs["tr_settings"]["fail_tol"]}', 
                   f'Q-{bo_kwargs["Q"]}',
                   f'exploitation-{bo_kwargs["exploitation"]}',

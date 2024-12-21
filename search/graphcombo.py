@@ -17,6 +17,7 @@ class GraphComBO:
     n_init: int
     seed: int
     converge: bool
+    noisy: bool
     tuple_to_int_mapper: dict
     int_to_tuple_mapper: dict
     kernel_configurations: dict
@@ -52,10 +53,12 @@ class GraphComBO:
                 acq_type=self.acqf_kwargs["type"],
             )
             # 3. Optimise the Acquisition function
-            raw_candidates = optimize_acqf(
+            raw_candidates, best_of_posterior_mean = optimize_acqf(
+                model,
                 acq_func,
                 context_graph=self.ComboSubgraph,
                 method="enumerate",
+                noisy=self.noisy,
                 X_avoid=X_mapped,
                 X_prior=X_prior,
                 acq_type=self.acqf_kwargs["type"],

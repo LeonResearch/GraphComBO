@@ -168,6 +168,7 @@ problems/Coauthor/
 problems/GNN/data/
 problems/*day2.gexf_
 notebooks/
+random_stuff/
 main_mine.py
 GNN_attack_demo.py
 GAT_CS.py

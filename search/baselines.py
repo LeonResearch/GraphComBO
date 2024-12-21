@@ -19,7 +19,7 @@ class Baseline:
     
     
     # =========== These baselines operate on the original graph ============
-    def Random_Sample(self, n_samples, patience: int = 1000):
+    def Random_Sample(self, n_samples, patience: int = 50000):
         iter = 0
         candidates = torch.zeros([0, self.k])
         while len(candidates) <= n_samples:
@@ -35,7 +35,7 @@ class Baseline:
             candidates = filter_invalid(candidates, self.X_queried)
             if iter >= patience:
                 raise RuntimeError(
-                    f"Can not sample enough combo-nodes at restart with the current patience!"
+                    f"Can not sample enough combo-nodes at restart with the current patience! "
                     f"Consider increasing the combinatorial space on a larger graph or larger k."
                 )
             iter += 1

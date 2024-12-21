@@ -196,10 +196,12 @@ def get_acqf(
 
 
 def optimize_acqf(
+    model,
     acqf: botorch.acquisition.AcquisitionFunction,
     context_graph: Union[nx.Graph, Tuple[Tensor, Tensor]],
     method: str = "enumerate",
     batch_size: int = 1,
+    noisy: bool=False,
     options: Optional[Dict[str, Any]] = None,
     X_avoid: Optional[torch.Tensor] = None,
     X_prior: Optional[torch.Tensor] = None,
@@ -213,12 +215,19 @@ def optimize_acqf(
             nnodes = len(context_graph.nodes)
         else:
             nnodes = context_graph[0].shape[0]
+        # get all possible nodes in the current graph
         all_possible_nodes = torch.arange(nnodes).reshape(-1, 1)
+        if noisy: # generate posterior mean if under noisy setting
+            model.eval()
+            posterior = model.posterior(all_possible_nodes)
+            mean = posterior.mean
+        best_posterior_mean_node = None
+
         if X_avoid is not None:
             all_possible_nodes = filter_invalid(all_possible_nodes, X_avoid)
             # print('# testing nodes in current context graph:', len(all_possible_nodes))
             if not all_possible_nodes.shape[0]:
-                return None
+                return None, None
         for q in range(batch_size):
             acqf_vals = acqf(all_possible_nodes.unsqueeze(1))
             if X_prior is not None:
@@ -239,4 +248,4 @@ def optimize_acqf(
             q=batch_size,
             **default_options,
         ).tolist()
-    return torch.tensor(nodes_to_eval)
+    return torch.tensor(nodes_to_eval), best_posterior_mean_node

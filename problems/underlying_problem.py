@@ -11,6 +11,7 @@ import ndlib.models.ModelConfig as mc
 import osmnx as ox
 from math import sqrt, comb
 from functools import partial
+from ogb.nodeproppred import NodePropPredDataset
 from torch_geometric.datasets import Coauthor, FacebookPagePage, TUDataset
 from torch_geometric.loader import DataLoader
 from torch_geometric.utils.convert import to_networkx, from_networkx 
@@ -23,6 +24,7 @@ from utils.config_utils import setup
 from problems.GNN.GNN_attack import GIN, generate_prediction
 from problems.SIR import SIR_MC, One_SIR_Run, individual_infection_time
 from problems.IC import IC_MC
+
 
 # Formulate the underlying problem as Class object
 class Problem:
@@ -58,6 +60,7 @@ class Problem:
         f += 1e-6 * torch.randn_like(f)
         return f if batch else f.squeeze(0)
 
+
 class SyntheticProblem(Problem):
     is_moo = False
     def __init__(self,
@@ -81,6 +84,7 @@ class SyntheticProblem(Problem):
             X = X.cpu().long()
         return self.obj_func(X)
 
+
 # Define the underlying problem details
 def get_synthetic_problem(
         label: str,
@@ -92,7 +96,8 @@ def get_synthetic_problem(
     k = problem_kwargs.get("k", 2)
     graph_type = problem_kwargs.get("graph_type", "ba")
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    
+    torch.manual_seed(seed)
+
     # ----------------- Underlying Graphs --------------------
     if graph_type == "ba":
         m = problem_kwargs.get("m", 1)
@@ -131,6 +136,14 @@ def get_synthetic_problem(
         g,_,_ = graph_relabel(nx.from_edgelist(np.load(f"{current_dir}/com_edge_list.npy")))
         print(f"Using epidemic {graph_type} (|V|={g.number_of_nodes()}) "
             f" |E|={g.number_of_edges()} with SIR simulation")
+    elif graph_type in ["ogb_arxiv"]:
+        dataset = NodePropPredDataset(name='ogbn-arxiv')
+        graph, labels = dataset[0]
+        g = nx.Graph()  
+        for i in range(graph['edge_index'].shape[1]):
+            u, v = graph['edge_index'][:, i]
+            g.add_edge(u, v)
+        print(f"Using open graph benchmark {graph_type} (|V|={g.number_of_nodes()}, |E|={g.number_of_edges()}) to select {k} nodes.")
     elif graph_type in ["CS"]:
         dataset = Coauthor(root='./problems/Coauthor', name='CS')
         g = to_networkx(dataset[0])
@@ -197,11 +210,17 @@ def get_synthetic_problem(
                 for j in range(m):
                     feature_dict[i * m + j] = (test_fun(1 - (2 / n) * i, -1 + (2 / m) * j)) + np.random.normal(loc = 0., scale=noise)
             feature = torch.tensor(list(feature_dict.values()))
+        
+        # standarize the signal under synthetic noisy settings
+        if getattr(problem_kwargs, "noisy", False):
+            print(f"Using noisy setting with noise std={problem_kwargs['noise']} added to standarized underlying function")
+            feature = (feature - feature.mean()) / feature.std()
+        
         feature_sorted, idx = feature.sort()
-        print("computing ground truth for synthetic problems ...........")
+        print(f"computing ground truth for synthetic problems with {feature_name} ...........")
         ground_truth = feature_sorted[-k:].mean()
-        # query function 
-        def obj_func(combo_node): return compute_synthetic_node_features(combo_node, g, feature_name=feature_name, feature=feature)
+        # query function
+        def obj_func(combo_node): return compute_synthetic_node_features(combo_node, g, feature_name=feature_name, feature=feature, **problem_kwargs)
         return SyntheticProblem(g, obj_func, ground_truth, problem_size=total_comb, **problem_kwargs)
     
     elif label in ["epidemic"]:
@@ -258,7 +277,8 @@ def get_synthetic_problem(
     else:
         raise NotImplementedError(f"Problem {label} is not implemented")
 
-# Compute the underying functions
+
+# ----------------- Compute the underying functions ------------------
 def compute_synthetic_node_features(
         combo_node: torch.Tensor,
         input_graph: nx.Graph,
@@ -271,6 +291,16 @@ def compute_synthetic_node_features(
     nnodes = len(input_graph)
     if feature is not None: # A synthetic setting by averaging pre-computed node-features over nodes.
         ret = list(map(lambda x: feature[combo_node[x]].mean(), range(combo_node.shape[0])))
+        # This is the setting for noisy case
+        if problem_kwargs.get('noisy', False):
+            k = combo_node.shape[-1]
+            ret = k**0.5 * torch.tensor(ret) # This step will lead to a signal with mean 0 and variance 1 in the combinatorial space
+            if problem_kwargs["noise"] == 0:
+                error = 0
+            else:
+                error = torch.normal(mean=0., std=problem_kwargs["noise"], size=(ret.shape[0],)) 
+            ret_noisy = ret + error
+            ret = ret_noisy.tolist()
     else: # This is for real-world scenarios when we don't have pre-computed synthetic features 
         start_time = time.time()
         ret = [] # an empty list to store evaluation results

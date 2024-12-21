@@ -91,9 +91,7 @@ def ComboSubgraph_Constructor(
         if l == 1 or fast_computation:  # Add edges among the ComboNodes
             # From definition in paper: compare if only 1 out of k nodes in each combonode
             # is different from another combonode across all combonodes in the combosubgraph
-            d_type = (
-                np.ushort if len(Graph) <= 65535 else np.unit32
-            )  # use unsigned int type to save memory
+            d_type = np.int32
             A = nx.adjacency_matrix(Graph).todense()
             X = np.array(list(ComboSubgraph.nodes)).astype(d_type)
             X1, X2 = X[:, None, :], X[None, :, :]  # X1.shape=[Q,1,k], X2.shape=[1,Q,k]
