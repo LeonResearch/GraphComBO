@@ -161,18 +161,18 @@ cython_debug/
 #.idea/
 
 # outputs
-./logs/*
-./logs_saved/
-./problems/TUDataset/
-./problems/Coauthor/
-./problems/GNN/data/
-./problems/*day2.gexf_
-./notebooks/
-./random_stuff/
-./configurations/rebuttal
-./search/run_bak.py
-./search/query_all.py
-./search/custom_optim.py
+logs/*
+logs_saved/
+problems/TUDataset/
+problems/Coauthor/
+problems/GNN/data/
+problems/*day2.gexf_
+notebooks/
+random_stuff/
+configurations/rebuttal
+search/run_bak.py
+search/query_all.py
+search/custom_optim.py
 main_mine.py
 GNN_attack_demo.py
 GAT_CS.py
