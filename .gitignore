@@ -166,7 +166,7 @@ logs_saved/
 dataset/
 problems/TUDataset/
 problems/Coauthor/
-problems/GNN/data/*
+problems/GNN/data/
 problems/*day2.gexf_
 notebooks/
 random_stuff/
