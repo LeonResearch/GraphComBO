@@ -163,6 +163,7 @@ cython_debug/
 # outputs
 logs/*
 logs_saved/
+dataset/
 problems/TUDataset/
 problems/Coauthor/
 problems/GNN/data/*
