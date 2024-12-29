@@ -6,7 +6,7 @@ bo_settings:
   max_iters: 100 # number of total queries
   max_radius: 5 # the maximum hop distance to the centre node when constructing the local context graph
   n_init: 1 # Initial queried points 
-  Q: 4000 # the size of the context ComboSubgraph
+  Q: 2000 # the size of the context ComboSubgraph
   large_Q: False
   exploitation: False
   start_location: random #[random, ei, betweenness, degree] # the initial starting location of search, recommended for large k
