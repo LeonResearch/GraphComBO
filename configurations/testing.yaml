@@ -19,11 +19,7 @@ bo_settings:
     shrink_tol: 10       # shrink tolerance
 problem_name: synthetic # [synthetic, epidemic, influence_maximisation, resilience, gnn_attack] the experimental problem type
 problem_settings:  
-<<<<<<< HEAD
   n: 10000 # number of nodes in the underlying (synthetic) random graphs
-=======
-  n: 1000 # number of nodes in the underlying (synthetic) random graphs
->>>>>>> 0d4b4c5b5f5e903c8ac26a26da51bb667155675a
   k: 8 # number of combinations
   graph_type: ba # [ws, ba, sbm, grid, contact_network_day1, CS, Facebook, Road, DD, ENZYMES]
   underlying_function: eigenvector_centrality # [eigenvector_centrality, pagerank, ackley, infection_time, independent_cascading, transitivity, JS, WD]
