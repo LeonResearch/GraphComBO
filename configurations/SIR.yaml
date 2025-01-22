@@ -1,0 +1,28 @@
+label: ["diffusion_ard"] # ["polynomial", "polynomial_suminverse", "diffusion", "diffusion_ard", "random", "local_search", "bfs", "dfs"]
+save_dir: ./logs/May16/
+n_exp: 7 # number of experiments with different random seeds
+bo_settings:
+  batch_size: 1 # batch size
+  max_iters: 300 # number of total queries
+  max_radius: 5 # the maximum hop distance to the centre node when constructing the local context graph
+  n_init: 1 # Initial queried points 
+  Q: 4000 # the size of the context ComboSubgraph
+  large_Q: False
+  exploitation: False
+  start_location: random #[random, ei, betweenness] # the initial starting location of search, recommended for large k
+  restart_location: queried_best #[same_as_start, queried_best]
+  tr_settings:    # settings related to the trust region on the graph search space
+    n_nodes_min: 10         # the min number of nodes in the trust region
+    trust_region_multiplier: 1.5 
+    succ_tol: 10       # success tolerance
+    fail_tol: 30    # fail tolerance
+    shrink_tol: 10       # shrink tolerance
+problem_name: epidemic # [centrality, epidemic] the experimental problem type
+problem_settings: 
+  k: 16 # number of combinations
+  graph_type: contact_network_day1 # ["contact_network_day1", "contact_network_day2"]
+  underlying_function: population_infection_time
+  infection_percentage_threshold: 0.5 # we record the time (i.e. # iterations) when this fraction of population is infected
+  fraction_infected: 0.1 # Initial fraction infected
+  SIR_n_samples: 100 # number of MC simulations
+  SIR_n_iterations: 120 # number of iterations in each simulation

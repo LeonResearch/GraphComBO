@@ -1,0 +1,5 @@
+num_layers: 3
+num_epochs: 200 # 100
+hidden_dim: 64 
+lr: 0.001 # 0.01
+dataset: ENZYMES # DD

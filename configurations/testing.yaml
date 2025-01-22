@@ -1,0 +1,39 @@
+label: [diffusion_ard] # [diffusion_ard, local_search, klocal_search, dfs, bfs, random_walk, random]
+save_dir: ./logs/testing/
+n_exp: 5 # number of experiments with different random seeds
+bo_settings:
+  batch_size: 1 # batch size
+  max_iters: 100 # number of total queries
+  max_radius: 5 # the maximum hop distance to the centre node when constructing the local context graph
+  n_init: 1 # Initial queried points 
+  Q: 2000 # the size of the context ComboSubgraph
+  large_Q: False
+  exploitation: False
+  start_location: random #[random, ei, betweenness, degree] # the initial starting location of search, recommended for large k
+  restart_location: queried_best  #[same_as_start, queried_best]
+  tr_settings:    # settings related to the trust region on the graph search space
+    n_nodes_min: 10         # the min number of nodes in the trust region
+    trust_region_multiplier: 1.5 
+    succ_tol: 10       # success tolerance
+    fail_tol: 30      # fail tolerance
+    shrink_tol: 10       # shrink tolerance
+problem_name: synthetic # [synthetic, epidemic, influence_maximisation, resilience, gnn_attack] the experimental problem type
+problem_settings:  
+  n: 10000 # number of nodes in the underlying (synthetic) random graphs
+  k: 8 # number of combinations
+  graph_type: ba # [ws, ba, sbm, grid, contact_network_day1, CS, Facebook, Road, DD, ENZYMES]
+  underlying_function: eigenvector_centrality # [eigenvector_centrality, pagerank, ackley, infection_time, independent_cascading, transitivity, JS, WD]
+  m: 5
+  wsk: 10
+  p: 0.1
+  ngroup: 4
+  probin: 0.05
+  probout: 0.001
+  noise: 0.5
+  infection_percentage_threshold: 0.5
+  fraction_infected: 0.1 # Initial fraction infected
+  SIR_n_samples: 100
+  SIR_n_iterations: 120
+  IC_p: 0.05
+  IC_n_samples: 1000
+  graph_index: 0 # we choose 2 because its size is relatively suitable for perturbation less than 32

@@ -1,0 +1,25 @@
+label: [diffusion_ard] # [polynomial, polynomial_suminverse, diffusion, diffusion_ard, local_search, random, bfs, dfs]
+save_dir: ./logs/May15/
+n_exp: 5 # number of experiments with different random seeds
+bo_settings:
+  batch_size: 1 # batch size
+  max_iters: 100 # number of total queries
+  max_radius: 10 # the maximum hop distance to the centre node when constructing the local context graph
+  n_init: 10 # Initial queried points 
+  Q: 4000 # the size of the context ComboSubgraph
+  large_Q: False
+  exploitation: False
+  start_location: random # the initial starting location of search, recommended for large k
+  restart_location: queried_best # [same_as_start, queried_best]
+  tr_settings: # settings related to the trust region on the graph search space
+    n_nodes_min: 10 # the min number of nodes in the trust region
+    trust_region_multiplier: 1.5 
+    succ_tol: 10 # success tolerance
+    fail_tol: 30 # fail tolerance
+    shrink_tol: 10       # shrink tolerance
+problem_name: gnn_attack # We train a GIN model and see how its prediction changes when we perturb the input graph by deleting k edges
+problem_settings:  
+  graph_type: ENZYMES # we use ENZYMES/DD dataset from TU dataset for graph classification
+  k: 8 # number of combinations
+  underlying_function: WD # the Wasserstein distance or JS divergence between predictions on the original graph and perturbed graph at softmax
+  graph_index: 0 # index of the victim graph in the dataset
